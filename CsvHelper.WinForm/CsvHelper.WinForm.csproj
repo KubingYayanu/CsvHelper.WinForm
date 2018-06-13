@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\CsvHandler.cs" />
     <Compile Include="Maps\CsvModelMap.cs" />
     <Compile Include="Models\CsvModel.cs" />
     <Compile Include="Program.cs" />

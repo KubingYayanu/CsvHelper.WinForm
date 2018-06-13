@@ -1,4 +1,6 @@
-﻿using CsvHelper.WinForm.Maps;
+﻿using CsvHelper.WinForm;
+using CsvHelper.WinForm.Handlers;
+using CsvHelper.WinForm.Maps;
 using CsvHelper.WinForm.Models;
 using System;
 using System.IO;
@@ -25,30 +27,7 @@ namespace CsvHelper.WinForm
             DialogResult result = openFileDialog.ShowDialog();
             if (result == DialogResult.OK) // Test result.
             {
-                var config = new Configuration.Configuration();
-                config.RegisterClassMap<CsvModelMap>();
-                config.HeaderValidated = (isValid, headerNames, headerNameIndex, context) =>
-                {
-                    if (!isValid)
-                    {
-                        return;
-                    }
-                };
-
-                using (var stream = new StreamReader(openFileDialog.FileName))
-                using (var reader = new CsvReader(stream, config))
-                {
-
-                    #region Validate Header
-
-                    reader.Read();
-                    reader.ReadHeader();
-                    reader.ValidateHeader<CsvModel>();
-
-                    #endregion Validate Header
-
-                    var records = reader.GetRecords<CsvModel>().ToList();
-                }
+                var hander = new CsvHandler<CsvModelMap, CsvModel>(openFileDialog.FileName);
             }
         }
 
