@@ -16,7 +16,7 @@ namespace CsvHelper.WinForm
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Reader());
+            Application.Run(new CsvForm());
         }
     }
 }

@@ -1,10 +1,5 @@
 ﻿using CsvHelper.Configuration;
 using CsvHelper.WinForm.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CsvHelper.WinForm.Maps
 {
@@ -12,7 +7,7 @@ namespace CsvHelper.WinForm.Maps
     {
         public CsvModelMap()
         {
-            Map(m => m.ProductName).Name("ProductName").Index(0).Validate(field => 
+            Map(m => m.ProductName).Name("ProductName").Index(0).Validate(field =>
             {
                 //TODO: validate field format
                 return true;

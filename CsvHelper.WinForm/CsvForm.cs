@@ -1,17 +1,15 @@
-﻿using CsvHelper.WinForm;
-using CsvHelper.WinForm.Handlers;
+﻿using CsvHelper.WinForm.Handlers;
 using CsvHelper.WinForm.Maps;
 using CsvHelper.WinForm.Models;
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace CsvHelper.WinForm
 {
-    public partial class Reader : Form
+    public partial class CsvForm : Form
     {
-        public Reader()
+        public CsvForm()
         {
             InitializeComponent();
         }
@@ -25,9 +23,30 @@ namespace CsvHelper.WinForm
             openFileDialog.Filter = "Csv files (*.csv)|*.csv";
 
             DialogResult result = openFileDialog.ShowDialog();
-            if (result == DialogResult.OK) // Test result.
+            // Test result.
+            if (result == DialogResult.OK)
             {
                 var hander = new CsvHandler<CsvModelMap, CsvModel>(openFileDialog.FileName);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Csv files (*.csv)|*.csv";
+            saveFileDialog.Title = "Save a Csv File";
+
+            DialogResult result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var helper = new CsvHelper();
+
+                var byteArray = helper.Composer<CsvModel, CsvModelMap>(helper.GetDummy());
+
+                using (var fs = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                {
+                    fs.Write(byteArray, 0, byteArray.Length);
+                }
             }
         }
 
